@@ -1,0 +1,23 @@
+.id{
+        width: 600px;
+          padding: 12px 10px;
+          margin-left: 16px 0;
+          box-sizing: content-box;
+          text-align: left;
+          
+}
+.Boxmaster{
+    height: 640px;  /*ความสูง*/
+    /*font-size: 2rem;*/
+    /*margin-left: 50%;*/
+    /*margin-top: 10mm;*/
+    margin: 0 auto;/**/
+    width: 800px;/**/
+    align-items: left;/*จัดกึ่งกลางแนวตั้ง*/
+    justify-content: left;/*จัดกึ่งกลางแนวนอน*/
+    border: 1mm ;
+    text-align: left;
+    padding: 3rem;
+    /*display: flex;*/
+  }
+  
