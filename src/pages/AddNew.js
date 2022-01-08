@@ -71,7 +71,7 @@ const handleSubmit = async (e) =>  {
     project:project,
     detail:detail,
     status:status,
-    date:date
+    date:date.toString()
   }).then((res) => {console.log('addnew ed')})
   .catch((err) => {console.log(err)})
 
