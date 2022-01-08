@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
+//import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,18 +8,37 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-
-function createData(name, calories, fat, carbs, protein) {
+import {db} from "../firebase-config";
+import {
+  collection,
+  getDocs,
+  doc,
+} from "firebase/firestore";
+/*function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
-/** */
 const rows = [
-  createData('10001', 'ลง Windown', 'เครื่องของแผนกมิเตอร์', '12/1/2021', 'เสร็จ'),
-  createData('10002', 'ลง Windown', 'เครื่องของแผนกบัญชี', '12/20/2021', 'เสร็จ'),
+  createData(1,'456789','ลง windows 10 ต้องเสร็จภายในวันนี้', '20/12/2021','เสร็จสิ้น'),
   
-];
+  
+];*/
 
-export default function WorkTable() {
+function WorkTab() {
+
+  const [add, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "addnew");
+
+ useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      console.log(data)
+      setUsers(data.docs.map((doc) => (console.log(doc.data()), {...doc.data() })));
+
+    };
+
+    getUsers();
+  }, []);
+console.log("dddddddddddd",add)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -35,25 +55,27 @@ export default function WorkTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {add.map((user) => {return (
             <TableRow
-              key={row.name}
+              key={user.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell component="th" scope="row">{user.id}</TableCell>
+              <TableCell align="right">{user.project}</TableCell>
+              <TableCell align="right">{user.detail}</TableCell>
+              <TableCell align="right">{user.date}</TableCell>
+              <TableCell align="right">{user.status}</TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <Button variant="contained">แก้ไข</Button>
             </TableRow>
-          ))}
+          )}
+          )}
         </TableBody>
       </Table>
     </TableContainer>
+          
   );
 }
+
+export default WorkTab;
