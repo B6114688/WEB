@@ -45,12 +45,12 @@ console.log("dddddddddddd",add)
         <TableHead>
           <TableRow>
             <TableCell>รหัสงาน</TableCell>
-            <TableCell align="right">ชื่องาน</TableCell>
-            <TableCell align="right">รายละเอียด</TableCell>
-            <TableCell align="right">วันที่รับ</TableCell>
-            <TableCell align="right">สถานะ</TableCell>
-            <TableCell align="right"></TableCell>
-            <TableCell align="right"></TableCell>
+            <TableCell align="left">ชื่องาน</TableCell>
+            <TableCell align="left">รายละเอียด</TableCell>
+            <TableCell align="center">วันที่รับ</TableCell>
+            <TableCell align="left">สถานะ</TableCell>
+            <TableCell align="left"></TableCell>
+            <TableCell align="left"></TableCell>
             
           </TableRow>
         </TableHead>
@@ -61,12 +61,12 @@ console.log("dddddddddddd",add)
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">{user.id}</TableCell>
-              <TableCell align="right">{user.project}</TableCell>
-              <TableCell align="right">{user.detail}</TableCell>
-              <TableCell align="right">{user.date}</TableCell>
-              <TableCell align="right">{user.status}</TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell align="left">{user.project}</TableCell>
+              <TableCell align="left">{user.detail}</TableCell>
+              <TableCell align="center">{user.date}</TableCell>
+              <TableCell align="left">{user.status}</TableCell>
+              <TableCell align="left"></TableCell>
+              <TableCell align="left"></TableCell>
               <Button variant="contained">แก้ไข</Button>
             </TableRow>
           )}
