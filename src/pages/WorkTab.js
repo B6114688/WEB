@@ -25,25 +25,26 @@ const rows = [
 ];*/
 
 function WorkTab() {
-
+  
   const [add, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "addnew");
 
 const deleteAll = async (id) =>{
     const userDoc = doc(db, "addnew", id);
-    await deleteDoc(userDoc);
+    const a = await deleteDoc(userDoc);
+    getUsers()
 }
 
- useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      console.log(data)
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-    };
+const getUsers = async () => {
+  const data = await getDocs(usersCollectionRef);
+  console.log(data)
+  setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+};
 
+ useEffect(() => {   
     getUsers();
-  }, []);
+  },[]);
 console.log("dddddddddddd",add)
 
   return (
@@ -75,9 +76,10 @@ console.log("dddddddddddd",add)
               <TableCell align="left"></TableCell>
               <TableCell align="left"></TableCell>
               <Button variant="contained">แก้ไข</Button>
-              <Button variant="contained"
-              onClick={() => {
-                deleteAll(user.id)}}>delete</Button>
+              <Button variant="contained" 
+              onClick={() => {deleteAll(user.id)
+              }}
+              >delete</Button>
             </TableRow>
           )}
           )}
