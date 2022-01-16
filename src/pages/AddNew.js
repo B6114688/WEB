@@ -62,7 +62,12 @@ const handleSubmit = async (e) =>  {
     detail:detail,
     status:status,
     date:date.toString(),
-  }).then((res) => {console.log('addnew ed')})
+  }).then((res) => {console.log('addnew ed') 
+  setProject("")
+  setID("")
+  setDetail("")
+  setStatus("")
+  })
   .catch((err) => {console.log(err)})
 
 };
