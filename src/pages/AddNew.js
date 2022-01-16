@@ -66,7 +66,7 @@ const handleSubmit = async (e) =>  {
   setProject("")
   setID("")
   setDetail("")
-  setStatus("")
+  
   })
   .catch((err) => {console.log(err)})
 
