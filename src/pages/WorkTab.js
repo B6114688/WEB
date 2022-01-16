@@ -12,6 +12,7 @@ import {db} from "../firebase-config";
 import {
   collection,
   getDocs,
+  deleteDoc,
   doc,
 } from "firebase/firestore";
 /*function createData(name, calories, fat, carbs, protein) {
@@ -28,17 +29,23 @@ function WorkTab() {
   const [add, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "addnew");
 
+const deleteAll = async (id) =>{
+    const userDoc = doc(db, "addnew", id);
+    await deleteDoc(userDoc);
+}
+
  useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       console.log(data)
-      setUsers(data.docs.map((doc) => (console.log(doc.data()), {...doc.data() })));
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
     };
 
     getUsers();
   }, []);
 console.log("dddddddddddd",add)
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -57,10 +64,10 @@ console.log("dddddddddddd",add)
         <TableBody>
           {add.map((user) => {return (
             <TableRow
-              key={user.id}
+              key={user.idw}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">{user.id}</TableCell>
+              <TableCell component="th" scope="row">{user.idw}</TableCell>
               <TableCell align="left">{user.project}</TableCell>
               <TableCell align="left">{user.detail}</TableCell>
               <TableCell align="center">{user.date}</TableCell>
@@ -68,6 +75,9 @@ console.log("dddddddddddd",add)
               <TableCell align="left"></TableCell>
               <TableCell align="left"></TableCell>
               <Button variant="contained">แก้ไข</Button>
+              <Button variant="contained"
+              onClick={() => {
+                deleteAll(user.id)}}>delete</Button>
             </TableRow>
           )}
           )}
