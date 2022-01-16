@@ -70,3 +70,15 @@
   span {
     margin-left: 16px;
   }
+
+  .name{
+    margin-left: 1700px;
+    font-size: 30px;
+    color: #fafafa;
+  }
+
+  .role{
+    margin-left: 1700px;
+    font-size: 20px;
+    color: #fafafa;
+  }
