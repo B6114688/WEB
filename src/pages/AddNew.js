@@ -61,7 +61,7 @@ const handleSubmit = async (e) =>  {
     project:project,
     detail:detail,
     status:status,
-    date:date.toString(),
+    date:date.toLocaleDateString(),
   }).then((res) => {console.log('addnew ed') 
   setProject("")
   setID("")
