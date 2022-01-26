@@ -57,7 +57,7 @@ const getUsers = async () => {
             <TableCell align="left">รายละเอียด</TableCell>
             <TableCell align="center">วันที่รับ</TableCell>
             <TableCell align="left">สถานะ</TableCell>
-            <TableCell align="left"></TableCell>
+            <TableCell align="left">เจ้าหน้าที่รับงาน</TableCell>
             <TableCell align="left"></TableCell>
             
           </TableRow>
@@ -73,7 +73,7 @@ const getUsers = async () => {
               <TableCell align="left">{user.detail}</TableCell>
               <TableCell align="center">{user.date}</TableCell>
               <TableCell align="left">{user.status}</TableCell>
-              <TableCell align="left"></TableCell>
+              <TableCell align="left">{user.nameUser}</TableCell>
               <TableCell align="left"></TableCell>
               <Button variant="contained">แก้ไข</Button>
               <Button variant="contained" 
