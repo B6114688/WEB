@@ -18,6 +18,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 const AddNew = () => {
  // const [state,setState]= useState(initializeState);
@@ -33,7 +34,8 @@ const [detail, setDetail] = useState()
 const [status, setStatus] = useState()
 //const [value, setValue] = React.useState(new Date());
 const [date, setDate] = React.useState(new Date());
-
+const name = reactLocalStorage.getObject("Xuser")[0]?.user
+const role = reactLocalStorage.getObject("Xuser")[0]?.role
 
 const getId = (e) => {
   setID(e.target.value) 
@@ -62,6 +64,7 @@ const handleSubmit = async (e) =>  {
     detail:detail,
     status:status,
     date:date.toLocaleDateString(),
+    nameUser:name,
   }).then((res) => {console.log('addnew ed') 
   setProject("")
   setID("")
