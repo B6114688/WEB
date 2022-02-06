@@ -39,6 +39,7 @@ function App() {
           <Route path='/worktab' element={<WorkTab />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/' element={<Home />} />
+          <Route path='/edit' element={<Edit />} />
         </Routes>
       </Router>
     );
