@@ -57,12 +57,12 @@ function Navbar() {
                         })}
                         {reactLocalStorage.getObject("Xuser")[0] ? <li className='nav-text'>
                             <Link  to={"/login"} onClick={FLogout}>
-                                {<IoIcons.IoIosAddCircle />}
+                                {<IoIcons.IoIosLogOut />}
                                 <span>{"LogUot"}</span>
                             </Link>
                         </li> : <li className='nav-text'>
                             <Link to={"/login"}>
-                                {<IoIcons.IoIosAddCircle />}
+                                {<IoIcons.IoIosLogIn />}
                                 <span>{"LogIn"}</span>
                             </Link>
                         </li>}
