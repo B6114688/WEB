@@ -15,15 +15,20 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { reactLocalStorage } from "reactjs-localstorage";
 import Notification from "../components/Notification";
+import { Update } from "@mui/icons-material";
+import { useLocation } from 'react-router-dom'
 import * as dayjs from "dayjs";
 
-const AddNew = () => {
-  const [idw, setID] = useState("");
-  const [project, setProject] = useState("");
-  const [detail, setDetail] = useState("");
-  const [status, setStatus] = useState("");
-  const [date, setDate] = React.useState(new Date());
-  const [dateEnd, setDateEnd] = React.useState(new Date());
+const Updatework = () => {
+  const location = useLocation()
+  console.log("555999",location)
+  
+  const [idw, setID] = useState(location.state?.user?.idw);
+  const [project, setProject] = useState(location.state?.user?.project);
+  const [detail, setDetail] = useState(location.state?.user?.detail);
+  const [status, setStatus] = useState(location.state?.user?.status);
+  const [date, setDate] = React.useState(dayjs(location.state?.user?.date).format("YYYY/MM/DD"));
+  const [dateEnd, setDateEnd] = React.useState(dayjs(location.state?.user?.dateEnd).format("YYYY/MM/DD"));
   const [idwError, setIDError] = useState(false);
   const [projectError, setProjectError] = useState(false);
   const [detailError, setDetailError] = useState(false);
@@ -35,7 +40,7 @@ const AddNew = () => {
   });
   const name = reactLocalStorage.getObject("Xuser")[0]?.user;
   const role = reactLocalStorage.getObject("Xuser")[0]?.role;
-
+  console.log("ddddd",dayjs("28/02/2565"))
   const getId = (e) => {
     setID(e.target.value);
   };
@@ -56,6 +61,7 @@ const AddNew = () => {
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
     setIDError(false);
     setProjectError(false);
@@ -72,10 +78,10 @@ const AddNew = () => {
         project: project,
         detail: detail,
         status: status,
-        date: new Date(dayjs(date).add(543,"year").format("YYYY/MM/DD")).getTime(),
-        dateEnd: new Date(dayjs(dateEnd).add(543,"year").format("YYYY/MM/DD")).getTime(),
-        nameUser: name,
+        date: new Date(dayjs(date).format("MM/DD/YYYY")).getTime(),
+        dateEnd: new Date(dayjs(dateEnd).format("MM/DD/YYYY")).getTime(),
         UpdateAt: new Date(dayjs().add(543,"year").format("YYYY/MM/DD")).getTime(), 
+        nameUser: name,
       })
         .then((res) => {
           console.log("addnew");
@@ -106,7 +112,7 @@ const AddNew = () => {
     if (status === "") {
       setStatusError(true)
     }
-
+    window.location.href="/worktab"
 
   };
 
@@ -118,6 +124,7 @@ const AddNew = () => {
           <div>
             <FormControl sx={{ m: 0.5, width: "20ch" }} variant="outlined">
               <TextField
+                disabled
                 label="ID"
                 id="idw"
                 name="idw"
@@ -128,6 +135,7 @@ const AddNew = () => {
             </FormControl>
             <FormControl sx={{ m: 0.5, width: "54.10ch" }} variant="outlined">
               <TextField
+                disabled
                 label="Project"
                 id="project"
                 name="project"
@@ -155,14 +163,13 @@ const AddNew = () => {
           <div>
             <FormControl sx={{ m: 0.5, width: "35ch" , marginRight: "5ch" }} variant="outlined" h>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
+                <TextField
+                  disabled
                   label="วันรับงาน"
-                  value={date}
+                  value={dayjs(date).format("DD/MM/YYYY")}
                   id="date1"
                   //minDate={new Date('2017-01-01')}
-                  onChange={(getDate) => {
-                    setDate(getDate);
-                  }}
+                  
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>{" "}
@@ -170,14 +177,13 @@ const AddNew = () => {
             <br /><br />
             <FormControl sx={{ m: 0.5, width: "35ch" }} variant="outlined" h>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
+                <TextField
+                  disabled
                   label="วันกำหนดเสร็จ"
-                  value={dateEnd}
+                  value={dayjs(dateEnd).format("DD/MM/YYYY")}
                   id="date2"
                   //minDate={new Date('2017-01-01')}
-                  onChange={(getDateEnd) => {
-                    setDateEnd(getDateEnd);
-                  }}
+                  
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>{" "}
@@ -199,7 +205,7 @@ const AddNew = () => {
             </FormControl>
             <br /><br />
             <Button  sx={{  width: "35ch" }} variant="contained" onClick={handleSubmit}>
-              Save
+              Save Update
             </Button>
           </div>      
         </div> 
@@ -208,4 +214,4 @@ const AddNew = () => {
   );
 };
 
-export default AddNew;
+export default Updatework;
