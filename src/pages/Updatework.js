@@ -29,7 +29,9 @@ const Updatework = () => {
   const [status, setStatus] = useState(location.state?.user?.status);
   const [date, setDate] = React.useState(dayjs(location.state?.user?.date).format("YYYY/MM/DD"));
   const [dateEnd, setDateEnd] = React.useState(dayjs(location.state?.user?.dateEnd).format("YYYY/MM/DD"));
+
   const [UpdateAt, setUpdateAt] = React.useState(dayjs(new Date(dayjs().add(543, "year").format("YYYY/MM/DD")).getTime()));
+
   const [idwError, setIDError] = useState(false);
   const [projectError, setProjectError] = useState(false);
   const [detailError, setDetailError] = useState(false);
@@ -74,6 +76,7 @@ const Updatework = () => {
       detail !== "" &&
       status !== ""
     ) {
+
       if (status === "ดำเนินการเสร็จสิ้น") {
         if (dateEnd >= UpdateAt) {
           await addDoc(collection(db, "addnew"), {

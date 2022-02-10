@@ -24,7 +24,9 @@ const AddNew = () => {
   const [status, setStatus] = useState("");
   const [date, setDate] = React.useState(new Date());
   const [dateEnd, setDateEnd] = React.useState(new Date());
+
   const [UpdateAt, setUpdateAt] = React.useState(new Date());
+
   const [idwError, setIDError] = useState(false);
   const [projectError, setProjectError] = useState(false);
   const [detailError, setDetailError] = useState(false);
@@ -263,8 +265,8 @@ const AddNew = () => {
             <Button sx={{ width: "35ch" }} variant="contained" onClick={handleSubmit}>
               Save
             </Button>
-          </div>
-        </div>
+          </div>      
+        </div> 
       </from>
     </>
   );
