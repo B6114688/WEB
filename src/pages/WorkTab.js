@@ -17,10 +17,11 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
-  doc,
+  doc,query, orderBy,
 } from "firebase/firestore";
 import { Link } from 'react-router-dom'
 import addnew from './AddNew';
+import * as dayjs from "dayjs";
 /*function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
@@ -33,6 +34,7 @@ const name = reactLocalStorage.getObject("Xuser")[0]?.user
 function WorkTab() {
   const [add, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "addnew");
+  
 
 
   const deleteAll = async (id) => {
@@ -42,7 +44,8 @@ function WorkTab() {
   };
 
   const getUsers = async () => {
-    const data = await getDocs(usersCollectionRef);
+    const q = query(usersCollectionRef, orderBy("date", "desc"));
+    const data = await getDocs(q);
     console.log(data);
     setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
@@ -68,7 +71,10 @@ function WorkTab() {
             <TableCell align="left">ชื่องาน</TableCell>
             <TableCell align="left">รายละเอียด</TableCell>
             <TableCell align="center">วันที่รับ</TableCell>
+            <TableCell align="center">วันกำหนดเสร็จ</TableCell>
+            <TableCell align="center">วันที่อัพเดท</TableCell>
             <TableCell align="left">สถานะ</TableCell>
+            <TableCell align="left">ส่งงาน</TableCell>
             <TableCell align="left">เจ้าหน้าที่รับงาน</TableCell>
             <TableCell align="left"></TableCell>
           </TableRow>
@@ -86,12 +92,15 @@ function WorkTab() {
                   </TableCell>
                   <TableCell align="left">{user.project}</TableCell>
                   <TableCell align="left">{user.detail}</TableCell>
-                  <TableCell align="center">{user.date}</TableCell>
+                  <TableCell align="center">{dayjs(user.date).format("DD/MM/YYYY")}</TableCell>
+                  <TableCell align="center">{dayjs(user.dateEnd).format("DD/MM/YYYY")}</TableCell>
+                  <TableCell align="center">{dayjs(user.UpdateAt).format("DD/MM/YYYY")}</TableCell>
                   <TableCell align="left">{user.status}</TableCell>
+                  <TableCell align="left">{user.sum}</TableCell>
                   <TableCell align="left">{user.nameUser}</TableCell>
                   <TableCell align="left"></TableCell>
-                  <Link to={"/Edit"} state = {{user:user}}>
-                    <Button variant="contained"  >แก้ไข</Button>
+                  <Link to={"/update"} state = {{user:user}}>
+                    <Button variant="contained"  >ความคืบหน้า</Button>
                   </Link>
 
 
