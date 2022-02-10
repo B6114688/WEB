@@ -8,7 +8,9 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import AddUser from './pages/AddUser';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import Edit from './pages/Edit';
+/*import Edit from './pages/Edit';*/
+import Updatework from './pages/Updatework';
+
 
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
           <Route path='/worktab' element={<WorkTab />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/adduser' element={<AddUser />} />
-          <Route path='/edit' element={<Edit />} />
+          <Route path='/update' element={<Updatework />} />
         </Routes>
       </Router>
     );
@@ -39,7 +41,7 @@ function App() {
           <Route path='/worktab' element={<WorkTab />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/' element={<Home />} />
-          <Route path='/edit' element={<Edit />} />
+          <Route path='/update' element={<Updatework />} />
         </Routes>
       </Router>
     );
