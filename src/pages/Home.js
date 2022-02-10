@@ -12,7 +12,6 @@ function Home() {
   return (
     <div className='home'>
       <h1>การไฟฟ้านะจ๊ะ</h1>
-      <button onClick={FLogout}>Logout</button>
     </div>
   );
 }
