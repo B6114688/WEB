@@ -15,6 +15,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import { reactLocalStorage } from "reactjs-localstorage";
 import Notification from "../components/Notification";
+import * as dayjs from "dayjs";
 
 const AddNew = () => {
   const [idw, setID] = useState("");
@@ -22,6 +23,8 @@ const AddNew = () => {
   const [detail, setDetail] = useState("");
   const [status, setStatus] = useState("");
   const [date, setDate] = React.useState(new Date());
+  const [dateEnd, setDateEnd] = React.useState(new Date());
+  const [UpdateAt, setUpdateAt] = React.useState(new Date());
   const [idwError, setIDError] = useState(false);
   const [projectError, setProjectError] = useState(false);
   const [detailError, setDetailError] = useState(false);
@@ -49,6 +52,9 @@ const AddNew = () => {
   const getDate = (e) => {
     setDate(e.target.value);
   };
+  const getDateEnd = (e) => {
+    setDateEnd(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,29 +68,92 @@ const AddNew = () => {
       detail !== "" &&
       status !== ""
     ) {
-      await addDoc(collection(db, "addnew"), {
-        idw: idw,
-        project: project,
-        detail: detail,
-        status: status,
-        date: date.toLocaleDateString(),
-        nameUser: name,
-      })
-        .then((res) => {
-          console.log("addnew");
-          setNotify({
-            isOpen: true,
-            message: "Successfully",
-            type: "success",
-          });
-          setID("");
-          setProject("");
-          setDetail("");
-          setStatus("");
+      if (status === "ดำเนินการเสร็จสิ้น") {
+        if (dateEnd >= UpdateAt) {
+          await addDoc(collection(db, "addnew"), {
+            idw: idw,
+            project: project,
+            detail: detail,
+            status: status,
+            date: new Date(dayjs(date).add(543, "year").format("YYYY/MM/DD")).getTime(),
+            dateEnd: new Date(dayjs(dateEnd).add(543, "year").format("YYYY/MM/DD")).getTime(),
+            nameUser: name,
+            UpdateAt: new Date(dayjs().add(543, "year").format("YYYY/MM/DD")).getTime(),
+            sum: "เสร็จตามกำหนดเวลา",
+          })
+            .then((res) => {
+              console.log("addnew");
+              setNotify({
+                isOpen: true,
+                message: "Successfully",
+                type: "success",
+              });
+              setID("");
+              setProject("");
+              setDetail("");
+              setStatus("");
+            })
+            .catch((err) => {
+              console.log("EROR");
+            });
+        }
+        else{
+          await addDoc(collection(db, "addnew"), {
+            idw: idw,
+            project: project,
+            detail: detail,
+            status: status,
+            date: new Date(dayjs(date).add(543, "year").format("YYYY/MM/DD")).getTime(),
+            dateEnd: new Date(dayjs(dateEnd).add(543, "year").format("YYYY/MM/DD")).getTime(),
+            nameUser: name,
+            UpdateAt: new Date(dayjs().add(543, "year").format("YYYY/MM/DD")).getTime(),
+            sum: "เสร็จเลยกำหนดเวลา",
+          })
+            .then((res) => {
+              console.log("addnew");
+              setNotify({
+                isOpen: true,
+                message: "Successfully",
+                type: "success",
+              });
+              setID("");
+              setProject("");
+              setDetail("");
+              setStatus("");
+            })
+            .catch((err) => {
+              console.log("EROR");
+            });
+        }
+      }else{
+        await addDoc(collection(db, "addnew"), {
+          idw: idw,
+          project: project,
+          detail: detail,
+          status: status,
+          date: new Date(dayjs(date).add(543, "year").format("YYYY/MM/DD")).getTime(),
+          dateEnd: new Date(dayjs(dateEnd).add(543, "year").format("YYYY/MM/DD")).getTime(),
+          nameUser: name,
+          UpdateAt: new Date(dayjs().add(543, "year").format("YYYY/MM/DD")).getTime(),
+          sum: "ยังทำไม่เสร็จ",
         })
-        .catch((err) => {
-          console.log("EROR");
-        });
+          .then((res) => {
+            console.log("addnew");
+            setNotify({
+              isOpen: true,
+              message: "Successfully",
+              type: "success",
+            });
+            setID("");
+            setProject("");
+            setDetail("");
+            setStatus("");
+          })
+          .catch((err) => {
+            console.log("EROR");
+          });
+      }
+
 
     }
     if (idw === "") {
@@ -146,12 +215,12 @@ const AddNew = () => {
           </div>
           <br />
           <div>
-            <FormControl sx={{ m: 0.5, width: "30ch" }} variant="outlined" h>
+            <FormControl sx={{ m: 0.5, width: "35ch", marginRight: "5ch" }} variant="outlined" h>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="date"
+                  label="วันรับงาน"
                   value={date}
-                  id="date"
+                  id="date1"
                   //minDate={new Date('2017-01-01')}
                   onChange={(getDate) => {
                     setDate(getDate);
@@ -160,7 +229,23 @@ const AddNew = () => {
                 />
               </LocalizationProvider>{" "}
             </FormControl>
-            <FormControl sx={{ m: 0.5, width: "30ch" }} variant="outlined" h>
+            <br /><br />
+            <FormControl sx={{ m: 0.5, width: "35ch" }} variant="outlined" h>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                  label="วันกำหนดเสร็จ"
+                  value={dateEnd}
+                  id="date2"
+                  //minDate={new Date('2017-01-01')}
+                  onChange={(getDateEnd) => {
+                    setDateEnd(getDateEnd);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>{" "}
+            </FormControl>
+            <br /><br />
+            <FormControl sx={{ m: 0.5, width: "35ch" }} variant="outlined" h>
               <InputLabel>สถานะ</InputLabel>
               <Select
                 id="status"
@@ -169,15 +254,13 @@ const AddNew = () => {
                 onChange={getStatus}
                 error={statusError}
               >
-                <MenuItem value="ยังไม่ทำ">ยังไม่ทำ</MenuItem>
-                <MenuItem value="กำลังทำ">กำลังทำ</MenuItem>
-                <MenuItem value="เสร็จสิ้น">เสร็จสิ้น</MenuItem>
+                <MenuItem value="ยังไม่ดำเนินการ">ยังไม่ดำเนินการ</MenuItem>
+                <MenuItem value="กำลังดำเนินการ">กำลังดำเนินการ</MenuItem>
+                <MenuItem value="ดำเนินการเสร็จสิ้น">ดำเนินการเสร็จสิ้น</MenuItem>
               </Select>
             </FormControl>
-          </div>
-          <br />
-          <div>
-            <Button variant="contained" onClick={handleSubmit}>
+            <br /><br />
+            <Button sx={{ width: "35ch" }} variant="contained" onClick={handleSubmit}>
               Save
             </Button>
           </div>
